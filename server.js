@@ -25,7 +25,12 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 var routes = require('./config/routes');
-app.use('/', routes)
+
+app.use(function(req, res, next) {
+  console.log(req.headers['user-agent']);
+  next();
+});
+app.use('/', routes);
 
 app.listen(port, function() {
     console.log('magic is happening on port ' + port);
